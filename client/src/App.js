@@ -20,6 +20,14 @@ function App() {
     }
 
   }
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    try{
+      
+    } catch (error) {
+
+    }
+  }
   //useEffect to use axios to fetch all blog posts on page load 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -34,6 +42,8 @@ function App() {
     fetchPosts()
 
   }, [])
+ 
+ 
 
   return (
 
@@ -49,6 +59,20 @@ function App() {
         ))}
       </ul>
       {/* posts? JSON.stringify(posts, null, 2 ) : "Loading..."}*/}
+     <form  onSubmit={handleSubmit}>
+      <input
+      type='text'
+      placeholder='Title'
+      value={newPost.title}
+      onChange={(e) => setNewPost({...newPost, title: e.target.value})}
+      />
+      <textarea
+      placeholder='Content'
+      value={newPost.content}
+      onChange={(e) => setNewPost({...newPost, content: e.target.value})}
+      />
+      <button type='submit'>Add Post</button>
+      </form>
     </div>
   );
 }
