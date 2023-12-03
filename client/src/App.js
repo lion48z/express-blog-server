@@ -21,11 +21,12 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const postToAdd = { ...newPost, id: Date.now() };
+    
+   let postToAdd = { ...newPost, id: Date.now() };
     //setIdCounter((prevCounter) => prevCounter + 1);       // Increment the counter
     //setPosts([...posts, newPostWithId]);
     try {
-      const response = await axios.post(`${BASE_URL}/posts`, postToAdd);
+      await axios.post(`${BASE_URL}/posts`, postToAdd);
       setPosts([...posts, postToAdd]);
       setNewPost({ id: 0, title: "", content: "", comments: [] });
     } catch (error) {
@@ -80,7 +81,7 @@ function App() {
             <button type="button" onClick={() => handleDelete(post.id)}>
               Delete
             </button>
-            <button type="button" onClick={() => handleUpdatePost(post)}>
+            <button type="button" onClick={() => handleUpdatePost(post.id)}>
               Edit
             </button>
           </li>
