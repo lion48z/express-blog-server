@@ -30,19 +30,23 @@ app.get('/', (req, res) => {
     res.send('Welcome to My Blog')  // for sending back text res.send
 })
 // create Post request route handler to create a new blog post
+
 app.post('/posts', (req, res) => {
     //create a new blog post Object
     //id current time when request received ...req.body will contain title and content 
-    const newPost = { id: Date.now(), ...req.body, comments:[] }
+    const newPost = { ...req.body}
     blogPosts.push(newPost);
     res.status(201).json(newPost); // send back blog post as json object 
     //along with a status code indicating success 
 })
 
+  
+
 // update put request route handler fo r updating 
 app.put('/posts/:id',(req, res)=>{
     // extract id from params object using destructuring
     const { id } = req.params;
+    //const postId = parseInt(id, 10);
      //find the index of the blog post in the blogPosts arra with matching id
      let index = blogPosts.findIndex(post => post.id === Number(id));
      if (index !== -1){
@@ -61,7 +65,7 @@ app.delete('/posts/:id', (req, res) => {
     const { id } = req.params;
     //use filter method if blog post does not match id param it stays
     //if if matches it gets filtered out of the array
-    blogPosts = blogPosts.filter(blogPost => blogPost.id !== Number(id)) 
+    blogPosts = blogPosts.filter(blogPost => blogPost.id !== Number(id) )
     res.status(204).send()
 })
 // start express server at Port 3000
