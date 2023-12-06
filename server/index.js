@@ -25,9 +25,19 @@ app.get('/posts', (req, res) => {
     res.json(blogPosts)
 }
 )
+// router handler for fetching post by id 
+app.get('/posts/:id', (req, res) => {
+    const { id } = req.params;
+    const post = blogPosts.find(post => post.id === Number(id));
+    if (post) {
+        res.json(post);
+    } else {
+        res.status(404).send("Post not found");
+    }
+});
 // create home page 
 app.get('/', (req, res) => {
-    res.send('Welcome to My Blog')  // for sending back text res.send
+    res.json('Welcome to My Blog')  // for sending back text res.json to help finding posts 
 })
 // create Post request route handler to create a new blog post
 
